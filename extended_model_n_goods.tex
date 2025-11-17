@@ -1,0 +1,257 @@
+% Copyright 2025 Diego Correa Tristain <algoritmia@labormedia.cl>
+%
+% Permission is hereby granted, free of charge, to any person obtaining a
+% copy of this document and associated documentation files (the "Document"),
+% to deal in the Document without restriction, including without limitation
+% the rights to use, copy, modify, merge, publish, distribute, sublicense,
+% and/or sell copies of the Document, and to permit persons to whom the
+% Software is furnished to do so, subject to the following conditions:
+
+% The above copyright notice and this permission notice shall be included in
+% all copies or substantial portions of the Document.
+%
+% THE DOCUMENT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+% OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+% FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+% DEALINGS IN THE SOFTWARE.
+
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{mathrsfs}
+\usepackage[backend=biber,style=authoryear]{biblatex} % Load biblatex
+
+\addbibresource{references.bib}
+
+\title{\textbf{Reaction--Diffusion Exchange Economies with Aggregated\\
+Cobb--Douglas Preferences for \(\mathbf{n \ge 2}\) Goods}}
+\author{Diego Correa Tristain \\ \texttt{algoritmia@labormedia.cl}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This document extends the two-good zero-sum exchange model originally developed in
+\emph{Emergent Properties of Distributed Agents with Two-Stage Convex Zero-Sum Optimal Exchange Network} (\cite{Tristain2024})
+to an economy with \(n \ge 2\) goods. The extension becomes feasible by aggregating
+pairwise Cobb--Douglas preference parameters into a globally consistent
+Cobb--Douglas exponent vector. This aggregation is valid provided a cycle
+consistency condition holds. The resulting \(n\)-good exchange economy preserves
+the convexity, zero-sum conservation, and tractability of the original model,
+while enabling higher-dimensional specialization, pattern formation, and
+reaction--diffusion dynamics analogous to those described by Turing (\cite{Turing1952}).
+\end{abstract}
+
+\section{Introduction}
+
+The two-stage convex zero-sum exchange model in \cite{Tristain2024} introduces an
+economy in which agents hold endowments of two goods, transform them through
+individual production rules, and subsequently exchange them through a global
+market that enforces a conservation law. In the two-good case, the conservation
+constraint ensures:
+\[
+e_{i,1}^t + e_{i,2}^t = \text{constant for each agent } i.
+\]
+Each trade is solved via convex optimization using a Cobb--Douglas utility function:
+\[
+u_i(x_1,x_2) = x_1^{\alpha_i} x_2^{1-\alpha_i},
+\qquad
+\alpha_j = 1 - \alpha_i.
+\]
+
+To reinterpret this system as a \emph{reaction--diffusion economy}, we draw inspiration from
+Turing's reaction--diffusion dynamics \cite{Turing1952}. In this analogy:
+
+\begin{itemize}
+\item the \textbf{reaction phase} corresponds to each agent applying transformation rules
+(or production technologies) to its own endowment, and
+\item the \textbf{diffusion phase} corresponds to agents participating in structured
+exchange with the rest of the system.
+\end{itemize}
+
+This produces endogenous spatial or distributional patterns in the economy,
+just as chemical species form patterns under reaction--diffusion rules.
+
+To generalize this framework to \(n \ge 2\) goods while preserving convexity and
+analytic tractability, we must generalize the utility functions. The key insight
+is that pairwise Cobb--Douglas preferences can be aggregated into a globally
+consistent Cobb--Douglas utility function, enabling the full \(n\)-good version
+of the reaction--diffusion exchange economy.
+
+\section{Pairwise Cobb--Douglas Preferences}
+
+Let the set of goods be:
+\[
+\mathcal{N} = \{1,2,\dots,n\}.
+\]
+For each pair \(i \neq j\), an agent specifies the pairwise Cobb--Douglas preference:
+\[
+u_{ij}(x_i,x_j)
+= x_i^{\alpha_{ij}} x_j^{1-\alpha_{ij}},
+\qquad
+\alpha_{ij} \in (0,1).
+\]
+Symmetry imposes:
+\[
+\alpha_{ji} = 1 - \alpha_{ij}.
+\]
+
+\subsection{Pairwise Ratios}
+
+From each pair, define:
+\[
+r_{ij} = \frac{1-\alpha_{ij}}{\alpha_{ij}} > 0,
+\]
+representing the relative intensity of preference for good \(j\) over good \(i\).
+
+\section{Aggregation to Global Cobb--Douglas Utility}
+
+We seek a global utility representation:
+\[
+u(\mathbf{x}) = \prod_{k=1}^n x_k^{\beta_k},
+\qquad \beta_k > 0,
+\]
+such that the pairwise marginal rates of substitution match the pairwise
+preferences.
+
+\subsection{Consistency Condition}
+
+Pairwise coefficients must satisfy:
+\[
+\frac{\beta_i}{\beta_i + \beta_j} = \alpha_{ij}
+\qquad \forall i \neq j.
+\]
+Equivalently:
+\[
+\frac{\beta_j}{\beta_i} = r_{ij}.
+\]
+
+A consistent solution exists \emph{if and only if} every directed cycle
+\(i_1 \to i_2 \to \cdots \to i_k \to i_1\) satisfies:
+\[
+\prod_{s=1}^{k} r_{i_s i_{s+1}} = 1
+\qquad (i_{k+1} = i_1).
+\]
+
+\subsection{Constructing \texorpdfstring{\(\boldsymbol{\beta}\)}{beta}}
+
+Choose a reference good, say \(\beta_1 = 1\), then recursively define:
+\[
+\beta_j = r_{1j} \beta_1.
+\]
+Normalize:
+\[
+\tilde{\beta}_k = \frac{\beta_k}{\sum_{j=1}^n \beta_j}.
+\]
+This yields a unique (up to scale) global Cobb--Douglas exponent vector.
+
+\section{The \(n\)-Good Reaction--Diffusion Exchange Economy}
+
+\subsection{Endowments and Conservation}
+
+Each agent holds an endowment vector:
+\[
+\mathbf{e}_i^t = (e_{i,1}^t,\dots,e_{i,n}^t) \in \mathbb{R}_+^n,
+\]
+with global conservation:
+\[
+\sum_{i=1}^m \mathbf{e}_i^t = \mathbf{E} \quad \forall t.
+\]
+
+\subsection{Reaction Phase}
+
+Agents apply linear technologies \(\mathcal{R}\), with:
+\[
+\mathbf{e}_i^{t,\mathrm{react}}
+=
+\mathbf{e}_i^t +
+\sum_{r \in \mathcal{R}} x_{i,r}^t(\mathbf{b}_r - \mathbf{a}_r),
+\qquad
+\sum_{r} x_{i,r}^t \mathbf{a}_r \le \mathbf{e}_i^t.
+\]
+
+\section{Diffusion (Exchange) Phase}
+
+Let \(\mathbf{p}^t \in \mathbb{R}^{n}_{++}\) be the price vector.  
+Agent \(i\) chooses \(\lambda_i^t \in [0,1]\) and a trade bundle \(\mathbf{z}_i^t\):
+
+\[
+\mathbf{s}_i^t = \lambda_i^t \mathbf{e}_i^{t,\mathrm{react}},
+\qquad
+x_{i,k}^t(\lambda_i^t) =
+(1-\lambda_i^t)e_{i,k}^{t,\mathrm{react}} + z_{i,k}^t.
+\]
+
+Utility:
+\[
+u_i(\mathbf{x}_i^t) = \prod_{k=1}^n x_{i,k}^{\tilde{\beta}_k^{(i)}}.
+\]
+
+Budget:
+\[
+\mathbf{p}^t \cdot \mathbf{z}_i^t
+\le
+\lambda_i^t (\mathbf{p}^t \cdot \mathbf{e}_i^{t,\mathrm{react}}).
+\]
+
+Demand:
+\[
+z_{i,k}^t(\lambda_i^t)
+=
+\frac{\tilde{\beta}_k^{(i)}}{p_k^t}
+\lambda_i^t (\mathbf{p}^t \cdot \mathbf{e}_i^{t,\mathrm{react}}).
+\]
+
+Derivative of log-utility in \(\lambda_i^t\):
+\[
+\frac{d}{d\lambda_i^t}\log u_i(\lambda_i^t)
+=
+\sum_{k=1}^n \tilde{\beta}_k^{(i)}
+\frac{
+  -e_{i,k}^{t,\mathrm{react}}
+  +
+  \dfrac{\tilde{\beta}_k^{(i)}}{p_k^t}(\mathbf{p}^t \cdot \mathbf{e}_i^{t,\mathrm{react}})
+}{
+  (1-\lambda_i^t)e_{i,k}^{t,\mathrm{react}}
+  +
+  \lambda_i^t \dfrac{\tilde{\beta}_k^{(i)}}{p_k^t}(\mathbf{p}^t \cdot \mathbf{e}_i^{t,\mathrm{react}})
+}.
+\]
+
+\section{Market Clearing}
+
+Supply:
+\[
+Q_k^t = \sum_i \lambda_i^t e_{i,k}^{t,\mathrm{react}}.
+\]
+
+Demand:
+\[
+D_k^t = \sum_i
+\frac{\tilde{\beta}_k^{(i)}}{p_k^t}
+\lambda_i^t (\mathbf{p}^t \cdot \mathbf{e}_i^{t,\mathrm{react}}).
+\]
+
+Clearing requires \(D_k^t = Q_k^t\).
+
+\section{Conclusion}
+
+Aggregating pairwise Cobb--Douglas preferences into global preferences allows
+the two-good zero-sum model of \cite{Tristain2024} to be extended to an economy
+with arbitrary dimension \(n\). The resulting reaction--diffusion exchange
+economy maintains convexity, tractability, and conservation, while opening the
+door to richer emergent behaviors in higher-dimensional economic systems.
+
+\clearpage
+\printbibliography
+
+\end{document}
