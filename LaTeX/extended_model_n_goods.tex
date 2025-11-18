@@ -54,12 +54,11 @@ reaction--diffusion dynamics analogous to those described by Turing (\cite{Turin
 \section{Introduction}
 
 The two-stage convex zero-sum exchange model in \cite{Tristain2024} introduces an
-economy in which agents hold endowments of two goods, transform them through
-individual production rules, and subsequently exchange them through a global
+economy in which agents hold endowments of two goods and subsequently exchange them through a peer to peer engagement within a global
 market that enforces a conservation law. In the two-good case, the conservation
-constraint ensures:
+constraint ensures exchange trade from agent i to agent j is equal to exchange trade from agent j to agent i (no further endowment is neither created nor destroyed):
 \[
-e_{i,1}^t + e_{i,2}^t = \text{constant for each agent } i.
+e_{i,j}^t + e_{j,i}^t = 0.
 \]
 Each trade is solved via convex optimization using a Cobb--Douglas utility function:
 \[
@@ -69,7 +68,7 @@ u_i(x_1,x_2) = x_1^{\alpha_i} x_2^{1-\alpha_i},
 \]
 
 To reinterpret this system as a \emph{reaction--diffusion economy}, we draw inspiration from
-Turing's reaction--diffusion dynamics \cite{Turing1952}. In this analogy:
+Turing's reaction--diffusion dynamics (\cite{Turing1952}). In this analogy:
 
 \begin{itemize}
 \item the \textbf{reaction phase} corresponds to each agent applying transformation rules
@@ -178,6 +177,8 @@ Agents apply linear technologies \(\mathcal{R}\), with:
 \qquad
 \sum_{r} x_{i,r}^t \mathbf{a}_r \le \mathbf{e}_i^t.
 \]
+
+with $\mathbf{a}_r$ being the endowments to be consumed for producing $\mathbf{b}_r$, given the endowment $x_{i,r}$ for agent i.
 
 \section{Diffusion (Exchange) Phase}
 
