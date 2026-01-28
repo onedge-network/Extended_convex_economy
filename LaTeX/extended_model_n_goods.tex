@@ -60,9 +60,9 @@ pairwise P2P trade level is expressed as:
 z_{i\to j}^{t} + z_{j\to i}^{t} = \mathbf{0}
 \]
 Equivalently, every bilateral exchange is a reallocation: no net goods are created or destroyed by the exchange step.
-Each trade is solved via convex optimization using a Cobb--Douglas utility function expressing convex preferences per agent \(i\) and preference parameter \( \alpha_{i,(a,b)} \) for every pair of assets \((a,b)\):
+Each trade is solved via convex optimization using a Cobb--Douglas utility function expressing convex preferences per agent \(i\) and preference parameter \( \alpha^{(i)}_{a\to b} \) for every pair of assets \((a,b)\):
 \[
-u_i(x_a,x_b) = x_a^{\alpha_{i,(a,b)}} x_b^{1-\alpha_{i,(a,b)}}
+u^{(i)}(x_a,x_b) = x_a^{\alpha^{(i)}_{a\to b}} x_b^{1-\alpha^{(i)}_{a\to b}}
 \]
 
 To reinterpret this system as a \emph{reaction--diffusion economy}, we draw inspiration from
@@ -96,30 +96,30 @@ Let the set of \(m\) agent indexes be:
 \]
 For each pair \(a \neq b\), an agent \(i \in \mathcal{M}\) specifies the pairwise Cobb--Douglas preference:
 \[
-u_{i, (a,b)}(x_{i,a},x_{i,b})
-= x_{i,a}^{\alpha_{i, (a,b)}} x_{i,b}^{1-\alpha_{i, (a,b)}},
+u^{(i)}_{(a,b)}(x_{i,a},x_{i,b})
+= x_{i,a}^{\alpha^{(i)}_{a\to b}} x_{i,b}^{1-\alpha^{(i)}_{a\to b}},
 \qquad
-\alpha_{i, (a,b)} \in (0,1).
+\alpha^{(i)}_{a\to b} \in (0,1).
 \]
 Symmetry imposes:
 \[
-\alpha_{i, (b,a)} = 1 - \alpha_{i, (a,b)}.
+\alpha^{(i)}_{b\to a} = 1 - \alpha^{(i)}_{a\to b}.
 \]
 
 \subsection{Pairwise Ratios}
 
-From each pair index \(a, b \in [1, n],\) , define:
+From each pair index \(a, b \in \mathcal{N}\) , define:
 \[
-r_{i, (a,b)} = \frac{1-\alpha_{i, (a,b)}}{\alpha_{i, (a,b)}} > 0,
+r^{(i)}_{a\to b} = \frac{1-\alpha^{(i)}_{a\to b}}{\alpha^{(i)}_{a\to b}} = \frac{\alpha^{(i)}_{b\to a}}{1-\alpha^{(i)}_{b\to a}}  > 0,
 \]
 representing the relative intensity of preference for good \(b\) over good \(a\).
 
 \section{Aggregation to Global Cobb--Douglas Utility}
 
-We seek a global utility representation for \(m\) agents:
+For every agent $i$ we seek a global utility representation for \(n\) goods:
 \[
-u(\mathbf{x}) = \prod_{k=1}^m x_{i, k}^{\beta_{i, k}},
-\qquad \beta_{i, k} \in [0, 1],
+u^{(i)}(\mathbf{x}) = \prod_{k=1}^n x_{i, k}^{\beta^{(i)}_{k}},
+\qquad \beta^{(i)}_{k} \in [0, 1],
 \]
 such that the pairwise marginal rates of substitution match the pairwise
 preferences.
@@ -128,14 +128,14 @@ preferences.
 
 For a fixed agent $i$, define ratios
 \[
-r_{i,(a,b)}=\frac{1-\alpha_{i,(a,b)}}{\alpha_{i,(a,b)}}.
+r^{(i)}_{a\to b}=\frac{1-\alpha^{(i)}_{a\to b}}{\alpha^{(i)}_{a\to b}}.
 \]
 A globally consistent exponent vector $\boldsymbol{\beta}^{(i)}\in\mathbb{R}_{++}^n$
 exists (unique up to scale) if and only if for every cycle of goods
-$(g_1\to g_2\to\cdots\to g_m\to g_1)$ we have:
+$(g_1\to g_2\to\cdots\to g_n\to g_1)$ we have:
 \[
-\prod_{\ell=1}^{m} r_{i,(g_\ell,g_{\ell+1})}=1,
-\qquad g_{m+1}=g_1.
+\prod_{\ell=1}^{n} r^{(i)}_{g_{\ell}\to g_{\ell+1}}=1,
+\qquad g_{n+1}=g_1.
 \]
 With:
 \[
