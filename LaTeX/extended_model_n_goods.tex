@@ -53,13 +53,13 @@ reaction--diffusion dynamics analogous to those described by Turing (\cite{Turin
 
 \section{Introduction}
 
-The two-stage convex zero-sum exchange model in \cite{Tristain2024} introduces an
-economy in which agents hold endowments of two goods and subsequently exchange them through a peer to peer engagement within a global
-market that enforces a conservation law. In the two-good case, the conservation
-constraint ensures exchange trade from agent i to agent j is equal to exchange trade \(z_{i,j}^t\) from agent \(i\) to agent \(j\), and viceversa, in time \(t\) (no further endowment is neither created nor destroyed):
+In the two-good case [\cite{Tristain2024}] , let $z_{i\to j}^{t}\in\mathbb{R}^{2}$ denote the (signed) transfer
+vector sent from agent $i$ to agent $j$ at time $t$. Zero-sum conservation at the
+pairwise P2P trade level is expressed as:
 \[
-z_{i,j}^t + z_{j,i}^t = 0.
+z_{i\to j}^{t} + z_{j\to i}^{t} = \mathbf{0}
 \]
+Equivalently, every bilateral exchange is a reallocation: no net goods are created or destroyed by the exchange step.
 Each trade is solved via convex optimization using a Cobb--Douglas utility function expressing convex preferences per agent \(i\) and preference parameter \( \alpha_{i,(a,b)} \) for every pair of assets \((a,b)\):
 \[
 u_i(x_a,x_b) = x_1^{\alpha_{i,(a,b)}} x_2^{1-\alpha_{i,(a,b)}}
