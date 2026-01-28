@@ -62,7 +62,7 @@ z_{i\to j}^{t} + z_{j\to i}^{t} = \mathbf{0}
 Equivalently, every bilateral exchange is a reallocation: no net goods are created or destroyed by the exchange step.
 Each trade is solved via convex optimization using a Cobb--Douglas utility function expressing convex preferences per agent \(i\) and preference parameter \( \alpha_{i,(a,b)} \) for every pair of assets \((a,b)\):
 \[
-u_i(x_a,x_b) = x_1^{\alpha_{i,(a,b)}} x_2^{1-\alpha_{i,(a,b)}}
+u_i(x_a,x_b) = x_a^{\alpha_{i,(a,b)}} x_b^{1-\alpha_{i,(a,b)}}
 \]
 
 To reinterpret this system as a \emph{reaction--diffusion economy}, we draw inspiration from
@@ -112,7 +112,7 @@ From each pair index \(a, b \in [1, n],\) , define:
 \[
 r_{i, (a,b)} = \frac{1-\alpha_{i, (a,b)}}{\alpha_{i, (a,b)}} > 0,
 \]
-representing the relative intensity of preference for good \(a\) over good \(b\).
+representing the relative intensity of preference for good \(b\) over good \(a\).
 
 \section{Aggregation to Global Cobb--Douglas Utility}
 
@@ -126,37 +126,40 @@ preferences.
 
 \subsection{Consistency Condition}
 
+For a fixed agent $i$, define ratios
+\[
+r_{i,(a,b)}=\frac{1-\alpha_{i,(a,b)}}{\alpha_{i,(a,b)}}.
+\]
+A globally consistent exponent vector $\boldsymbol{\beta}^{(i)}\in\mathbb{R}_{++}^n$
+exists (unique up to scale) if and only if for every cycle of goods
+$(g_1\to g_2\to\cdots\to g_m\to g_1)$ we have:
+\[
+\prod_{\ell=1}^{m} r_{i,(g_\ell,g_{\ell+1})}=1,
+\qquad g_{m+1}=g_1.
+\]
+With:
+\[
+\boldsymbol{\beta}^{(i)} = \big(\beta^{(i)}_1,\beta^{(i)}_2,\dots,\beta^{(i)}_n\big)\in\mathbb{R}^n_{++}.
+\]
 Pairwise coefficients must satisfy:
 \[
-\frac{\beta_{i, a}}{\beta_{i, a} + \beta_{i, b}} = \alpha_{i, (a,b)}
-\qquad \forall a \neq b
+\frac{\beta^{(i)}_a}{\beta^{(i)}_a + \beta^{(i)}_b} = \alpha_{i, (a,b)}
+\qquad \forall a, b \in \mathcal{N} , a \neq b
 \]
 Equivalently:
 \[
-\frac{\beta_{i,b}}{\beta_{i,a}} = r_{i, (a,b)}
+\frac{\beta^{(i)}_{b}}{\beta^{(i)}_{a}} = r_{i, (a,b)}
 \]
 
-A consistent solution exists \emph{if and only if} every directed cycle
-\(i_1 \to i_2 \to \cdots \to i_n \to i_1\) over all agents \(i\) from a closed set of \(k\) agents and \(n\) goods satisfies:
-\[
-\prod_{s=1}^{n} r_{i, (s, s+1)} = 1
-\qquad (i_{n+1} = i_1).
-\]
-with 
-\[
-r_{i, (s, s+1)} = r_{s, s+1}
-\qquad (\forall i \in [1,k], s \in [1,n])
-\] 
+\subsection{Constructing \texorpdfstring{\(\boldsymbol{\beta}^{(i)}\)}{beta}}
 
-\subsection{Constructing \texorpdfstring{\(\boldsymbol{\beta}\)}{beta}}
-
-Choose a reference good, say \(\beta_1 = 1\), then recursively define:
+Choose a reference good, say \(\beta^{(i)}_1 = 1\), then recursively define:
 \[
-\beta_j = r_{1,j} \beta_1.
+\beta^{(i)}_j = r_{i, (1,j)} \beta^{(i)}_1.
 \]
 Normalize:
 \[
-\tilde{\beta}_k = \frac{\beta_k}{\sum_{j=1}^n \beta_j}.
+\tilde{\beta}^{(i)}_k = \frac{\beta^{(i)}_k}{\sum_{j=1}^n \beta^{(i)}_j}.
 \]
 This yields a unique (up to scale) global Cobb--Douglas exponent vector.
 
