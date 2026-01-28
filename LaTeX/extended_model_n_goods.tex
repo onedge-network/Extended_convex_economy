@@ -90,32 +90,36 @@ Let the set of \(n\) goods indexes be:
 \[
 \mathcal{N} = \{1,2,\dots,n\}.
 \]
-For each pair \(a \neq b\), an agent specifies the pairwise Cobb--Douglas preference:
+Let the set of \(m\) agent indexes be:
 \[
-u_{a,b}(x_a,x_b)
-= x_a^{\alpha_{a,b}} x_b^{1-\alpha_{a,b}},
+\mathcal{M} = \{1,2,\dots,m\}.
+\]
+For each pair \(a \neq b\), an agent \(i \in \mathcal{M}\) specifies the pairwise Cobb--Douglas preference:
+\[
+u_{i, (a,b)}(x_{i,a},x_{i,b})
+= x_{i,a}^{\alpha_{i, (a,b)}} x_{i,b}^{1-\alpha_{i, (a,b)}},
 \qquad
-\alpha_{a,b} \in (0,1).
+\alpha_{i, (a,b)} \in (0,1).
 \]
 Symmetry imposes:
 \[
-\alpha_{b,a} = 1 - \alpha_{a,b}.
+\alpha_{i, (b,a)} = 1 - \alpha_{i, (a,b)}.
 \]
 
 \subsection{Pairwise Ratios}
 
 From each pair index \(a, b \in [1, n],\) , define:
 \[
-r_{a,b} = \frac{1-\alpha_{a,b}}{\alpha_{a,b}} > 0,
+r_{i, (a,b)} = \frac{1-\alpha_{i, (a,b)}}{\alpha_{i, (a,b)}} > 0,
 \]
 representing the relative intensity of preference for good \(a\) over good \(b\).
 
 \section{Aggregation to Global Cobb--Douglas Utility}
 
-We seek a global utility representation for \(k\) agents:
+We seek a global utility representation for \(m\) agents:
 \[
-u(\mathbf{x}) = \prod_{k=1}^n x_k^{\beta_k},
-\qquad \beta_k \in [0, 1],
+u(\mathbf{x}) = \prod_{k=1}^m x_{i, k}^{\beta_{i, k}},
+\qquad \beta_{i, k} \in [0, 1],
 \]
 such that the pairwise marginal rates of substitution match the pairwise
 preferences.
@@ -124,12 +128,12 @@ preferences.
 
 Pairwise coefficients must satisfy:
 \[
-\frac{\beta_a}{\beta_a + \beta_b} = \alpha_{a,b}
+\frac{\beta_{i, a}}{\beta_{i, a} + \beta_{i, b}} = \alpha_{i, (a,b)}
 \qquad \forall a \neq b
 \]
 Equivalently:
 \[
-\frac{\beta_b}{\beta_a} = r_{a,b}
+\frac{\beta_{i,b}}{\beta_{i,a}} = r_{i, (a,b)}
 \]
 
 A consistent solution exists \emph{if and only if} every directed cycle
