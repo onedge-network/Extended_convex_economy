@@ -56,15 +56,13 @@ reaction--diffusion dynamics analogous to those described by Turing (\cite{Turin
 The two-stage convex zero-sum exchange model in \cite{Tristain2024} introduces an
 economy in which agents hold endowments of two goods and subsequently exchange them through a peer to peer engagement within a global
 market that enforces a conservation law. In the two-good case, the conservation
-constraint ensures exchange trade from agent i to agent j is equal to exchange trade from agent j to agent i (no further endowment is neither created nor destroyed):
+constraint ensures exchange trade from agent i to agent j is equal to exchange trade \(z_{i,j}^t\) from agent \(i\) to agent \(j\), and viceversa, in time \(t\) (no further endowment is neither created nor destroyed):
 \[
-e_{i,j}^t + e_{j,i}^t = 0.
+z_{i,j}^t + z_{j,i}^t = 0.
 \]
-Each trade is solved via convex optimization using a Cobb--Douglas utility function:
+Each trade is solved via convex optimization using a Cobb--Douglas utility function expressing convex preferences per agent \(i\) and preference parameter \( \alpha_{i,(a,b)} \) for every pair of assets \((a,b)\):
 \[
-u_i(x_1,x_2) = x_1^{\alpha_i} x_2^{1-\alpha_i},
-\qquad
-\alpha_j = 1 - \alpha_i.
+u_i(x_a,x_b) = x_1^{\alpha_{i,(a,b)}} x_2^{1-\alpha_{i,(a,b)}}
 \]
 
 To reinterpret this system as a \emph{reaction--diffusion economy}, we draw inspiration from
@@ -88,36 +86,36 @@ of the reaction--diffusion exchange economy.
 
 \section{Pairwise Cobb--Douglas Preferences}
 
-Let the set of goods be:
+Let the set of \(n\) goods indexes be:
 \[
 \mathcal{N} = \{1,2,\dots,n\}.
 \]
-For each pair \(i \neq j\), an agent specifies the pairwise Cobb--Douglas preference:
+For each pair \(a \neq b\), an agent specifies the pairwise Cobb--Douglas preference:
 \[
-u_{ij}(x_i,x_j)
-= x_i^{\alpha_{ij}} x_j^{1-\alpha_{ij}},
+u_{a,b}(x_a,x_b)
+= x_a^{\alpha_{a,b}} x_b^{1-\alpha_{a,b}},
 \qquad
-\alpha_{ij} \in (0,1).
+\alpha_{a,b} \in (0,1).
 \]
 Symmetry imposes:
 \[
-\alpha_{ji} = 1 - \alpha_{ij}.
+\alpha_{b,a} = 1 - \alpha_{a,b}.
 \]
 
 \subsection{Pairwise Ratios}
 
-From each pair, define:
+From each pair index \(a, b \in [1, n],\) , define:
 \[
-r_{ij} = \frac{1-\alpha_{ij}}{\alpha_{ij}} > 0,
+r_{a,b} = \frac{1-\alpha_{a,b}}{\alpha_{a,b}} > 0,
 \]
-representing the relative intensity of preference for good \(j\) over good \(i\).
+representing the relative intensity of preference for good \(a\) over good \(b\).
 
 \section{Aggregation to Global Cobb--Douglas Utility}
 
-We seek a global utility representation:
+We seek a global utility representation for \(k\) agents:
 \[
 u(\mathbf{x}) = \prod_{k=1}^n x_k^{\beta_k},
-\qquad \beta_k > 0,
+\qquad \beta_k \in [0, 1],
 \]
 such that the pairwise marginal rates of substitution match the pairwise
 preferences.
@@ -126,26 +124,31 @@ preferences.
 
 Pairwise coefficients must satisfy:
 \[
-\frac{\beta_i}{\beta_i + \beta_j} = \alpha_{ij}
-\qquad \forall i \neq j.
+\frac{\beta_a}{\beta_a + \beta_b} = \alpha_{a,b}
+\qquad \forall a \neq b
 \]
 Equivalently:
 \[
-\frac{\beta_j}{\beta_i} = r_{ij}.
+\frac{\beta_b}{\beta_a} = r_{a,b}
 \]
 
 A consistent solution exists \emph{if and only if} every directed cycle
-\(i_1 \to i_2 \to \cdots \to i_k \to i_1\) satisfies:
+\(i_1 \to i_2 \to \cdots \to i_n \to i_1\) over all agents \(i\) from a closed set of \(k\) agents and \(n\) goods satisfies:
 \[
-\prod_{s=1}^{k} r_{i_s i_{s+1}} = 1
+\prod_{s=1}^{n} r_{i, (s, s+1)} = 1
 \qquad (i_{k+1} = i_1).
 \]
+with 
+\[
+r_{i, (s, s+1)} = r_{s, s+1}
+\qquad (\forall i \in [1,k], s \in [1,n])
+\] 
 
 \subsection{Constructing \texorpdfstring{\(\boldsymbol{\beta}\)}{beta}}
 
 Choose a reference good, say \(\beta_1 = 1\), then recursively define:
 \[
-\beta_j = r_{1j} \beta_1.
+\beta_j = r_{1,j} \beta_1.
 \]
 Normalize:
 \[
@@ -157,36 +160,44 @@ This yields a unique (up to scale) global Cobb--Douglas exponent vector.
 
 \subsection{Endowments and Conservation}
 
-Each agent holds an endowment vector:
+Each agent \(i\) holds an endowment vector in time \(t\):
 \[
-\mathbf{e}_i^t = (e_{i,1}^t,\dots,e_{i,n}^t) \in \mathbb{R}_+^n,
+\mathbf{x}_i^t = (x_{i,1}^t,\dots,x_{i,n}^t) \in \mathbb{R}_+^n,
 \]
-with global conservation:
+with global constant conservation \(  \mathbf{E} \in \mathbb{R}_+^n \) for all agents \(i \in \mathcal{N}\) in all time sequences \(t \in \{1,2,..,T\}\):
 \[
-\sum_{i=1}^m \mathbf{e}_i^t = \mathbf{E} \quad \forall t.
+\sum_{i=1}^k \mathbf{e}_i^t = \mathbf{E} 
 \]
 
 \subsection{Reaction Phase}
 
-Agents apply linear technologies \(\mathcal{R}\), with:
+All agents \(i \in \mathcal{N}\) apply linear technologies \(r \in \mathcal{R}\) such that:
+\[
+\mathbf{O}_r \in \mathbb{R}_+^n 
+\qquad (outputs)
+\]
+\[
+\mathbf{I}_r \in \mathbb{R}_+^n 
+\qquad (inputs)
+\]
 \[
 \mathbf{e}_i^{t,\mathrm{react}}
 =
 \mathbf{e}_i^t +
-\sum_{r \in \mathcal{R}} x_{i,r}^t(\mathbf{b}_r - \mathbf{a}_r),
+\mathbf{e}_i^t(\mathbf{O}_r - \mathbf{I}_r),
 \qquad
-\sum_{r} x_{i,r}^t \mathbf{a}_r \le \mathbf{e}_i^t.
+\mathbf{e}_{i}^t \mathbf{I}_r \le \mathbf{e}_i^{t}.
 \]
 
-with $\mathbf{a}_r$ being the endowments to be consumed for producing $\mathbf{b}_r$, given the endowment $x_{i,r}$ for agent i.
+with $\mathbf{I}_r$ being the endowment of good \(r\)to be consumed (inputs) for producing $\mathbf{O}_r$ (outputs), given the inital endowment $\mathbf{e}_{i}^t$ for period t, agent i and set of technologies \(\mathcal{R}\).
 
 \section{Diffusion (Exchange) Phase}
 
 Let \(\mathbf{p}^t \in \mathbb{R}^{n}_{++}\) be the price vector.  
-Agent \(i\) chooses \(\lambda_i^t \in [0,1]\) and a trade bundle \(\mathbf{z}_i^t\):
+Agent \(i\) chooses \(\lambda_i^t \in \mathbb{R}_+^n\) and a trade bundle \(\mathbf{z}_i^t \in \mathbb{R}_+^n\):
 
 \[
-\mathbf{s}_i^t = \lambda_i^t \mathbf{e}_i^{t,\mathrm{react}},
+\mathbf{z}_i^t = \lambda_i^t \mathbf{e}_i^{t,\mathrm{react}},
 \qquad
 x_{i,k}^t(\lambda_i^t) =
 (1-\lambda_i^t)e_{i,k}^{t,\mathrm{react}} + z_{i,k}^t.
