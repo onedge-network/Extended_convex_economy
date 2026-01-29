@@ -19,7 +19,125 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global}
-    \entry{Tristain2024}{misc}{}
+    \entry{BoydVandenberghe2004}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=ec94d94cc487dd71939a90cbeaaf47d0}{%
+           family={Boyd},
+           familyi={B\bibinitperiod},
+           given={Stephen},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2608d599a0bc2a784c301329a8da5f7b}{%
+           family={Vandenberghe},
+           familyi={V\bibinitperiod},
+           given={Lieven},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{fullhash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{bibnamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{authorbibnamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{authornamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{authorfullhash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780521833783}
+      \field{title}{Convex Optimization}
+      \field{year}{2004}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://web.stanford.edu/~boyd/cvxbook/
+      \endverb
+      \verb{url}
+      \verb https://web.stanford.edu/~boyd/cvxbook/
+      \endverb
+    \endentry
+    \entry{CobbDouglas1928}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=4b1e58488c833f0e00ca31177a610766}{%
+           family={Cobb},
+           familyi={C\bibinitperiod},
+           given={Charles\bibnamedelima W.},
+           giveni={C\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8a376c7a92bd269c68d30126c5b49330}{%
+           family={Douglas},
+           familyi={D\bibinitperiod},
+           given={Paul\bibnamedelima H.},
+           giveni={P\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{2ac559fb41aac5def20e46dd8802dbd4}
+      \strng{fullhash}{2ac559fb41aac5def20e46dd8802dbd4}
+      \strng{bibnamehash}{2ac559fb41aac5def20e46dd8802dbd4}
+      \strng{authorbibnamehash}{2ac559fb41aac5def20e46dd8802dbd4}
+      \strng{authornamehash}{2ac559fb41aac5def20e46dd8802dbd4}
+      \strng{authorfullhash}{2ac559fb41aac5def20e46dd8802dbd4}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The American Economic Review}
+      \field{number}{1}
+      \field{title}{A Theory of Production}
+      \field{volume}{18}
+      \field{year}{1928}
+      \true{nocite}
+      \field{pages}{139\bibrangedash 165}
+      \range{pages}{27}
+    \endentry
+    \entry{MasColell1995}{book}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=b76f97409971b7c349c5ca95c956f216}{%
+           family={Mas-Colell},
+           familyi={M\bibinithyphendelim C\bibinitperiod},
+           given={Andreu},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=05b1805ba14dd00cec1e7274204394c3}{%
+           family={Whinston},
+           familyi={W\bibinitperiod},
+           given={Michael\bibnamedelima D.},
+           giveni={M\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3351d53ca164d7525b03413fc0e38b7c}{%
+           family={Green},
+           familyi={G\bibinitperiod},
+           given={Jerry\bibnamedelima R.},
+           giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University Press}%
+      }
+      \strng{namehash}{f8214b974ce5352fbe5adcce666b8ad0}
+      \strng{fullhash}{f8214b974ce5352fbe5adcce666b8ad0}
+      \strng{bibnamehash}{f8214b974ce5352fbe5adcce666b8ad0}
+      \strng{authorbibnamehash}{f8214b974ce5352fbe5adcce666b8ad0}
+      \strng{authornamehash}{f8214b974ce5352fbe5adcce666b8ad0}
+      \strng{authorfullhash}{f8214b974ce5352fbe5adcce666b8ad0}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780195102680}
+      \field{title}{Microeconomic Theory}
+      \field{year}{1995}
+      \true{nocite}
+    \endentry
+    \entry{Tristain2024}{online}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=8673dfa4a0198409c08b4fe307e6ac86}{%
            family={Tristain},
@@ -40,10 +158,19 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{howpublished}{GitHub repository}
-      \field{note}{\url{https://github.com/onedge-network/Emergent_Properties_paper}}
+      \field{note}{Open-access manuscript and repository}
       \field{title}{Emergent Properties of Distributed Agents with Two-Stage Convex Zero-Sum Optimal Exchange Network}
+      \field{urlday}{28}
+      \field{urlmonth}{1}
+      \field{urlyear}{2026}
       \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/onedge-network/Emergent_Properties_paper
+      \endverb
+      \verb{url}
+      \verb https://github.com/onedge-network/Emergent_Properties_paper
+      \endverb
     \endentry
     \entry{Turing1952}{article}{}
       \name{author}{1}{}{%
@@ -53,9 +180,6 @@
            given={Alan\bibnamedelima M.},
            giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
            givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {The Royal Society}%
       }
       \strng{namehash}{1210277649f3c7541e2750ee21da6237}
       \strng{fullhash}{1210277649f3c7541e2750ee21da6237}
@@ -69,7 +193,7 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Philosophical Transactions of the Royal Society of London. Series B}
+      \field{journaltitle}{Philosophical Transactions of the Royal Society of London. Series B, Biological Sciences}
       \field{number}{641}
       \field{title}{The Chemical Basis of Morphogenesis}
       \field{volume}{237}
@@ -79,12 +203,36 @@
       \verb{doi}
       \verb 10.1098/rstb.1952.0012
       \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.1098/rstb.1952.0012
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.1098/rstb.1952.0012
-      \endverb
+    \endentry
+    \entry{Varian1992}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=affde3c8d511e90b7126c60a56e7ab49}{%
+           family={Varian},
+           familyi={V\bibinitperiod},
+           given={Hal\bibnamedelima R.},
+           giveni={H\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {W. W. Norton \& Company}%
+      }
+      \strng{namehash}{affde3c8d511e90b7126c60a56e7ab49}
+      \strng{fullhash}{affde3c8d511e90b7126c60a56e7ab49}
+      \strng{bibnamehash}{affde3c8d511e90b7126c60a56e7ab49}
+      \strng{authorbibnamehash}{affde3c8d511e90b7126c60a56e7ab49}
+      \strng{authornamehash}{affde3c8d511e90b7126c60a56e7ab49}
+      \strng{authorfullhash}{affde3c8d511e90b7126c60a56e7ab49}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{isbn}{9780393957358}
+      \field{title}{Microeconomic Analysis}
+      \field{year}{1992}
+      \true{nocite}
     \endentry
   \enddatalist
 \endrefsection

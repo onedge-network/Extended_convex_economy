@@ -40,237 +40,275 @@ Cobb--Douglas Preferences for \(\mathbf{n \ge 2}\) Goods}}
 \maketitle
 
 \begin{abstract}
-This document extends the two-good zero-sum exchange model originally developed in
-\emph{Emergent Properties of Distributed Agents with Two-Stage Convex Zero-Sum Optimal Exchange Network} (\cite{Tristain2024})
-to an economy with \(n \ge 2\) goods. The extension becomes feasible by aggregating
-pairwise Cobb--Douglas preference parameters into a globally consistent
-Cobb--Douglas exponent vector. This aggregation is valid provided a cycle
-consistency condition holds. The resulting \(n\)-good exchange economy preserves
-the convexity, zero-sum conservation, and tractability of the original model,
-while enabling higher-dimensional specialization, pattern formation, and
-reaction--diffusion dynamics analogous to those described by Turing (\cite{Turing1952}).
+This document extends the two-good, two-stage convex zero-sum exchange model introduced in
+\emph{Emergent Properties of Distributed Agents with Two-Stage Convex Zero-Sum Optimal Exchange Network} \parencite{Tristain2024}
+to an economy with \(n \ge 2\) goods. The extension is made possible by aggregating
+\emph{pairwise} Cobb--Douglas preference parameters into a globally consistent
+Cobb--Douglas exponent vector \(\bm{\beta}^{(i)}\) for each agent \(i\).
+The aggregation is exact when a cycle-consistency condition holds; otherwise it can be posed as a least-squares
+projection in log-ratio space. The resulting \(n\)-good exchange economy preserves convexity and tractability, and
+supports reaction--diffusion dynamics in the sense of Turing-type pattern formation \parencite{Turing1952}.
 \end{abstract}
 
 \section{Introduction}
 
-In the two-good case [\cite{Tristain2024}] , let $z_{i\to j}^{t}\in\mathbb{R}^{2}$ denote the (signed) transfer
-vector sent from agent $i$ to agent $j$ at time $t$. Zero-sum conservation at the
-pairwise P2P trade level is expressed as:
-\[
-z_{i\to j}^{t} + z_{j\to i}^{t} = \mathbf{0}
-\]
-Equivalently, every bilateral exchange is a reallocation: no net goods are created or destroyed by the exchange step.
-Each trade is solved via convex optimization using a Cobb--Douglas utility function expressing convex preferences per agent \(i\) and preference parameter \( \alpha^{(i)}_{a\to b} \) for every pair of assets \((a,b)\):
-\[
-u^{(i)}(x_a,x_b) = x_a^{\alpha^{(i)}_{a\to b}} x_b^{1-\alpha^{(i)}_{a\to b}}
-\]
-
-To reinterpret this system as a \emph{reaction--diffusion economy}, we draw inspiration from
-Turing's reaction--diffusion dynamics (\cite{Turing1952}). In this analogy:
-
-\begin{itemize}
-\item the \textbf{reaction phase} corresponds to each agent applying transformation rules
-(or production technologies) to its own endowment, and
-\item the \textbf{diffusion phase} corresponds to agents participating in structured
-exchange with the rest of the system.
+We consider an economy with:
+\begin{itemize}[leftmargin=*]
+  \item \(m \ge 2\) agents indexed by \(i \in \{1,\dots,m\}\),
+  \item \(n \ge 2\) goods (``species'') indexed by \(a \in \{1,\dots,n\}\),
+  \item discrete time (rounds) indexed by \(t \in \{0,1,2,\dots\}\).
 \end{itemize}
 
-This produces endogenous spatial or distributional patterns in the economy,
-just as chemical species form patterns under reaction--diffusion rules.
+Each agent \(i\) holds an endowment vector
+\[
+\bm{e}_i^t = (e_{i,1}^t,\dots,e_{i,n}^t)^\top \in \mathbb{R}_+^n,
+\]
+and the system satisfies a global conservation law across agents in the \emph{diffusion (exchange) phase}:
+\[
+\sum_{i=1}^m \bm{e}_i^t = \bm{E} \in \mathbb{R}_+^n \qquad \forall t.
+\]
+In the original two-good model, bilateral exchanges were written as a zero-sum constraint at the edge level.
+For \(n\) goods, a bilateral exchange between agents \(i\) and \(j\) can be expressed as an exchange vector
+\(\bm{\varepsilon}_{i \to j}^{t} \in \mathbb{R}^n\) such that
+\[
+\bm{\varepsilon}_{i \to j}^{t} + \bm{\varepsilon}_{j \to i}^{t} = \bm{0},
+\]
+ensuring that trades only redistribute goods among agents.
 
-To generalize this framework to \(n \ge 2\) goods while preserving convexity and
-analytic tractability, we must generalize the utility functions. The key insight
-is that pairwise Cobb--Douglas preferences can be aggregated into a globally
-consistent Cobb--Douglas utility function, enabling the full \(n\)-good version
-of the reaction--diffusion exchange economy.
+The dynamics have two phases each round:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Reaction:} each agent applies endogenous transformation rules (technologies) to its own endowment,
+        mapping some goods into others under feasibility constraints.
+  \item \textbf{Diffusion:} agents exchange goods via local, utility-maximizing trades subject to budgets, producing
+        a redistribution consistent with conservation.
+\end{enumerate}
+This mirrors reaction--diffusion systems in which reaction reshapes local composition while diffusion transports
+quantities across the network \parencite{Turing1952}. The key additional ingredient in the economic setting is that
+diffusion is not random transport but \emph{Pareto-improving exchange} governed by convex preferences.
 
 \section{Pairwise Cobb--Douglas Preferences}
 
-Let the set of \(n\) goods indexes be:
+Fix an agent \(i\). For each ordered pair of \emph{distinct} goods \((a,b)\) the agent specifies a pairwise
+Cobb--Douglas utility over the two-dimensional projection \((x_a,x_b)\):
 \[
-\mathcal{N} = \{1,2,\dots,n\}.
+u_{i,(a,b)}(x_a,x_b) = x_a^{\alpha^{(i)}_{ab}} x_b^{1-\alpha^{(i)}_{ab}},
+\qquad \alpha^{(i)}_{ab} \in (0,1).
 \]
-Let the set of \(m\) agent indexes be:
+A natural symmetry requirement is
 \[
-\mathcal{M} = \{1,2,\dots,m\}.
+\alpha^{(i)}_{ba} = 1 - \alpha^{(i)}_{ab},
 \]
-For each pair \(a \neq b\), an agent \(i \in \mathcal{M}\) specifies the pairwise Cobb--Douglas preference:
+so that the same indifference curves are obtained regardless of the direction in which the pair is written.
+
+\subsection{Preference ratios}
+
+Define the pairwise \emph{intensity ratio} (good \(b\) relative to \(a\)):
 \[
-u^{(i)}_{(a,b)}(x_{i,a},x_{i,b})
-= x_{i,a}^{\alpha^{(i)}_{a\to b}} x_{i,b}^{1-\alpha^{(i)}_{a\to b}},
+r^{(i)}_{ab} \coloneqq \frac{1-\alpha^{(i)}_{ab}}{\alpha^{(i)}_{ab}} > 0.
+\]
+In a global Cobb--Douglas representation, these ratios correspond to exponent ratios:
+\[
+r^{(i)}_{ab} = \frac{\beta_b^{(i)}}{\beta_a^{(i)}}.
+\]
+
+\section{Aggregation to a global Cobb--Douglas utility}
+
+We seek a global utility for agent \(i\) of the form
+\[
+u_i(\bm{x}) = \prod_{a=1}^n x_a^{\beta_a^{(i)}},
+\qquad \bm{x} \in \mathbb{R}_{++}^n,\quad \beta_a^{(i)} > 0,
+\]
+where
+\[
+\bm{\beta}^{(i)} \coloneqq (\beta_1^{(i)},\dots,\beta_n^{(i)})^\top \in \mathbb{R}_{++}^n
+\]
+is the (unnormalized) exponent vector. Normalizing to unit sum gives
+\[
+\tilde{\bm{\beta}}^{(i)} \coloneqq \frac{\bm{\beta}^{(i)}}{\bm{1}^\top \bm{\beta}^{(i)}},
+\qquad \bm{1} \in \mathbb{R}^n,
+\]
+so that \(\sum_a \tilde{\beta}^{(i)}_a = 1\).
+
+\subsection{Exact consistency}
+
+The pairwise utilities are exactly consistent with some \(\bm{\beta}^{(i)}\) if and only if for all distinct \(a,b\)
+\[
+\alpha^{(i)}_{ab} = \frac{\beta_a^{(i)}}{\beta_a^{(i)}+\beta_b^{(i)}}
+\quad\Longleftrightarrow\quad
+\frac{\beta_b^{(i)}}{\beta_a^{(i)}} = r^{(i)}_{ab}.
+\]
+Equivalently, every cycle \(a_1 \to a_2 \to \dots \to a_k \to a_1\) must satisfy the cycle condition:
+\[
+\prod_{s=1}^{k} r^{(i)}_{a_s a_{s+1}} = 1,
+\qquad (a_{k+1}=a_1).
+\]
+This is the multiplicative ``no-arbitrage'' condition in ratio space, ruling out intransitive preference cycles.
+
+\subsection{Constructing \texorpdfstring{\(\bm{\beta}^{(i)}\)}{beta}}
+
+If the ratios are consistent, \(\bm{\beta}^{(i)}\) is determined up to a positive scalar.
+Fix a reference good (e.g.\ good \(1\)) and set \(\beta_1^{(i)} = 1\). Then for each \(a\),
+choose any path \(1 \to \cdots \to a\) and propagate:
+\[
+\beta_a^{(i)} = \left(\prod_{\ell \text{ on path}} r^{(i)}_{\ell,\ell+1}\right)\beta_1^{(i)}.
+\]
+The cycle condition guarantees path-independence. Finally normalize to obtain \(\tilde{\bm{\beta}}^{(i)}\).
+
+\subsection{Noisy or inconsistent pairwise inputs}
+
+Empirical \(\alpha^{(i)}_{ab}\) will generally be noisy and violate the cycle condition. A convenient projection is to
+work in log space. Let \(y_a^{(i)} \coloneqq \log \beta_a^{(i)}\) and
+\(\rho^{(i)}_{ab} \coloneqq \log r^{(i)}_{ab}\). Then exact consistency is
+\[
+y_b^{(i)} - y_a^{(i)} = \rho^{(i)}_{ab}\quad \forall a\neq b,
+\]
+and a least-squares recovery solves
+\[
+\min_{\bm{y}^{(i)}\in\mathbb{R}^n}\;\sum_{1\le a<b\le n}\left((y_b^{(i)}-y_a^{(i)})-\rho^{(i)}_{ab}\right)^2,
+\]
+with a gauge fixing such as \(y_1^{(i)}=0\). Setting \(\beta_a^{(i)} \coloneqq e^{y_a^{(i)}}\) then yields a
+best-fit exponent vector, which can be normalized.
+
+\section{The \(n\)-good reaction--diffusion exchange economy}
+
+\subsection{Reaction phase (endogenous transformation)}
+
+Let \(\mathcal{R}\) be a finite set of reaction rules (technologies). Each rule \(r \in \mathcal{R}\) is specified by:
+\begin{itemize}[leftmargin=*]
+  \item an \emph{input} vector \(\bm{a}_r \in \mathbb{R}_+^n\),
+  \item an \emph{output} vector \(\bm{b}_r \in \mathbb{R}_+^n\),
+  \item an intensity (decision variable) \(x_{i,r}^t \ge 0\) for agent \(i\) at time \(t\).
+\end{itemize}
+Agent \(i\)'s post-reaction endowment is
+\[
+\bm{e}_i^{t,\mathrm{react}}
+  = \bm{e}_i^{t}
+    + \sum_{r \in \mathcal{R}} x_{i,r}^{t}\,(\bm{b}_r-\bm{a}_r),
+\]
+subject to feasibility (componentwise):
+\[
+\sum_{r \in \mathcal{R}} x_{i,r}^{t}\,\bm{a}_r \le \bm{e}_i^{t}.
+\]
+This defines a convex feasible set because the constraints are linear and the update is affine in \(\{x_{i,r}^t\}\).
+
+\paragraph{Conservation remark.}
+Reaction rules typically change the composition of \(\bm{E}\) over time. If one wishes to enforce conservation of a
+linear invariant (e.g.\ mass/energy), introduce a matrix \(L\) such that \(L\bm{b}_r = L\bm{a}_r\) for all \(r\),
+which guarantees \(L\sum_i \bm{e}_i^t\) is preserved.
+
+\subsection{Diffusion phase (exchange)}
+
+Let \(\bm{p}^t \in \mathbb{R}_{++}^n\) be a price vector at round \(t\).
+Each agent chooses a \emph{per-good} trade fraction
+\[
+\bm{\lambda}_i^t = (\lambda_{i,1}^t,\dots,\lambda_{i,n}^t)^\top \in [0,1]^n,
+\]
+and posts a supply vector (Hadamard product \(\odot\)):
+\[
+\bm{s}_i^t = \bm{\lambda}_i^t \odot \bm{e}_i^{t,\mathrm{react}}.
+\]
+The retained inventory is \((\bm{1}-\bm{\lambda}_i^t)\odot\bm{e}_i^{t,\mathrm{react}}\).
+
+Let \(\bm{z}_i^t \in \mathbb{R}_+^n\) denote the agent's acquired bundle from exchange. Define the trade budget
+(wealth committed to trading) as
+\[
+w_i^t \coloneqq \bm{p}^t \cdot (\bm{\lambda}_i^t \odot \bm{e}_i^{t,\mathrm{react}}).
+\]
+The diffusion problem is
+\begin{equation}
+\label{eq:diffusion-problem}
+\max_{\bm{\lambda}_i^t \in [0,1]^n,\;\bm{z}_i^t \ge 0}
+\quad
+u_i\!\left((\bm{1}-\bm{\lambda}_i^t)\odot\bm{e}_i^{t,\mathrm{react}} + \bm{z}_i^t\right)
+\quad\text{s.t.}\quad
+\bm{p}^t \cdot \bm{z}_i^t \le w_i^t.
+\end{equation}
+
+\subsection{Marshallian demand for fixed \texorpdfstring{\(\bm{\lambda}_i^t\)}{lambda}}
+
+For fixed \(\bm{\lambda}_i^t\), the problem in \(\bm{z}_i^t\) is standard Cobb--Douglas with linear budget.
+Let \(\tilde{\bm{\beta}}^{(i)}\) be the normalized exponents. The Marshallian demand is
+\[
+z_{i,a}^t(\bm{\lambda}_i^t)
+= \frac{\tilde{\beta}_a^{(i)}}{p_a^t}\,w_i^t,
+\qquad a=1,\dots,n.
+\]
+The post-trade holdings are
+\[
+x_{i,a}^t(\bm{\lambda}_i^t)
+= (1-\lambda_{i,a}^t)e_{i,a}^{t,\mathrm{react}} + z_{i,a}^t(\bm{\lambda}_i^t).
+\]
+
+\subsection{Concave optimization over \texorpdfstring{\(\bm{\lambda}_i^t\)}{lambda}}
+
+Define the log-utility as a function of \(\bm{\lambda}_i^t\):
+\[
+\ell_i(\bm{\lambda}_i^t)
+\coloneqq \log u_i(\bm{x}_i^t(\bm{\lambda}_i^t))
+= \sum_{a=1}^n \tilde{\beta}_a^{(i)}\log x_{i,a}^t(\bm{\lambda}_i^t).
+\]
+Since each \(x_{i,a}^t(\bm{\lambda})\) is affine in \(\bm{\lambda}\) and \(\log\) is concave, \(\ell_i\) is concave
+on \([0,1]^n\). Hence the optimization in \(\bm{\lambda}_i^t\) is a convex program (maximize concave objective with
+box constraints), solvable by projected gradient, coordinate ascent, or off-the-shelf convex solvers.
+
+A useful closed-form expression for the partial derivatives is obtained by writing
+\[
+w_i^t = \sum_{b=1}^n p_b^t \lambda_{i,b}^t e_{i,b}^{t,\mathrm{react}},
 \qquad
-\alpha^{(i)}_{a\to b} \in (0,1).
+x_{i,a}^t = (1-\lambda_{i,a}^t)e_{i,a}^{t,\mathrm{react}} + \frac{\tilde{\beta}_a^{(i)}}{p_a^t}\,w_i^t.
 \]
-Symmetry imposes:
+Then for each component \(m \in \{1,\dots,n\}\),
 \[
-\alpha^{(i)}_{b\to a} = 1 - \alpha^{(i)}_{a\to b}.
-\]
-
-\subsection{Pairwise Ratios}
-
-From each pair index \(a, b \in \mathcal{N}\) , define:
-\[
-r^{(i)}_{a\to b} = \frac{1-\alpha^{(i)}_{a\to b}}{\alpha^{(i)}_{a\to b}} = \frac{\alpha^{(i)}_{b\to a}}{1-\alpha^{(i)}_{b\to a}}  > 0,
-\]
-representing the relative intensity of preference for good \(b\) over good \(a\).
-
-\section{Aggregation to Global Cobb--Douglas Utility}
-
-For every agent $i$ we seek a global utility representation for \(n\) goods:
-\[
-u^{(i)}(\mathbf{x}) = \prod_{k=1}^n x_{i, k}^{\beta^{(i)}_{k}},
-\qquad \beta^{(i)}_{k} \in [0, 1],
-\]
-such that the pairwise marginal rates of substitution match the pairwise
-preferences.
-
-\subsection{Consistency Condition}
-
-For a fixed agent $i$, define ratios
-\[
-r^{(i)}_{a\to b}=\frac{1-\alpha^{(i)}_{a\to b}}{\alpha^{(i)}_{a\to b}}.
-\]
-A globally consistent exponent vector $\boldsymbol{\beta}^{(i)}\in\mathbb{R}_{++}^n$
-exists (unique up to scale) if and only if for every cycle of goods
-$(g_1\to g_2\to\cdots\to g_n\to g_1)$ we have:
-\[
-\prod_{\ell=1}^{n} r^{(i)}_{g_{\ell}\to g_{\ell+1}}=1,
-\qquad g_{n+1}=g_1.
-\]
-With:
-\[
-\boldsymbol{\beta}^{(i)} = \big(\beta^{(i)}_1,\beta^{(i)}_2,\dots,\beta^{(i)}_n\big)\in\mathbb{R}^n_{++}.
-\]
-Pairwise coefficients must satisfy:
-\[
-\frac{\beta^{(i)}_a}{\beta^{(i)}_a + \beta^{(i)}_b} = \alpha_{i, (a,b)}
-\qquad \forall a, b \in \mathcal{N} , a \neq b
-\]
-Equivalently:
-\[
-\frac{\beta^{(i)}_{b}}{\beta^{(i)}_{a}} = r_{i, (a,b)}
-\]
-
-\subsection{Constructing \texorpdfstring{\(\boldsymbol{\beta}^{(i)}\)}{beta}}
-
-Choose a reference good, say \(\beta^{(i)}_1 = 1\), then recursively define:
-\[
-\beta^{(i)}_j = r_{i, (1,j)} \beta^{(i)}_1.
-\]
-Normalize:
-\[
-\tilde{\beta}^{(i)}_k = \frac{\beta^{(i)}_k}{\sum_{j=1}^n \beta^{(i)}_j}.
-\]
-This yields a unique (up to scale) global Cobb--Douglas exponent vector.
-
-\section{The \(n\)-Good Reaction--Diffusion Exchange Economy}
-
-\subsection{Endowments and Conservation}
-
-Each agent \(i\) holds an endowment vector in time \(t\):
-\[
-\mathbf{x}_i^t = (x_{i,1}^t,\dots,x_{i,n}^t) \in \mathbb{R}_+^n,
-\]
-with global constant conservation \(  \mathbf{E} \in \mathbb{R}_+^n \) for all agents \(i \in \mathcal{N}\) in all time sequences \(t \in \{1,2,..,T\}\):
-\[
-\sum_{i=1}^n \mathbf{e}_i^t = \mathbf{E} 
-\]
-
-\subsection{Reaction Phase}
-
-All agents \(i \in \mathcal{N}\) apply linear technologies \(r \in \mathcal{R}\) such that:
-\[
-\mathbf{O}_r \in \mathbb{R}_+^n 
-\qquad (outputs)
-\]
-\[
-\mathbf{I}_r \in \mathbb{R}_+^n 
-\qquad (inputs)
-\]
-\[
-\mathbf{e}_i^{t,\mathrm{react}}
+\frac{\partial \ell_i}{\partial \lambda_{i,m}^t}
 =
-\mathbf{e}_i^t +
-\mathbf{e}_i^t(\mathbf{O}_r - \mathbf{I}_r),
+-\tilde{\beta}_m^{(i)}\frac{e_{i,m}^{t,\mathrm{react}}}{x_{i,m}^t}
++
+p_m^t e_{i,m}^{t,\mathrm{react}}
+\sum_{a=1}^n
+\tilde{\beta}_a^{(i)}\,
+\frac{\tilde{\beta}_a^{(i)}}{p_a^t\,x_{i,a}^t}.
+\]
+At an interior optimum, these partial derivatives vanish (KKT conditions), while boundary optima occur at
+\(\lambda_{i,m}^t \in \{0,1\}\) for some components.
+
+\section{Market clearing and price determination}
+
+Total posted supply of good \(a\) is
+\[
+Q_a^t = \sum_{i=1}^m \lambda_{i,a}^t e_{i,a}^{t,\mathrm{react}}.
+\]
+Total demand (from Marshallian demand) is
+\[
+D_a^t = \sum_{i=1}^m \frac{\tilde{\beta}_a^{(i)}}{p_a^t}\,w_i^t,
 \qquad
-\mathbf{e}_{i}^t \mathbf{I}_r \le \mathbf{e}_i^{t}.
+w_i^t=\bm{p}^t\cdot(\bm{\lambda}_i^t\odot\bm{e}_i^{t,\mathrm{react}}).
 \]
+Market clearing requires \(D_a^t = Q_a^t\) for all \(a\).
 
-with $\mathbf{I}_r$ being the endowment of goods to be consumed (inputs) for producing $\mathbf{O}_r$ (outputs), given the inital endowment $\mathbf{e}_{i}^t$ for period t, agent i and set of technologies \(\mathcal{R}\).
-
-\section{Diffusion (Exchange) Phase}
-
-Let \(\mathbf{p}^t \in \mathbb{R}^{n}_{++}\) be the price vector.  
-Agent \(i\) chooses \(\lambda_i^t \in \mathbb{R}_+^n\) and a trade bundle \(\mathbf{z}_i^t \in \mathbb{R}_+^n\):
-
+If all agents share the same exponent vector \(\tilde{\bm{\beta}}\) and choose a common scalar trading rate
+\(\lambda_i^t\equiv\lambda^t\), then relative prices recover the familiar closed form
 \[
-\mathbf{z}_i^t = \lambda_i^t \mathbf{e}_i^{t,\mathrm{react}},
-\qquad
-x_{i,k}^t(\lambda_i^t) =
-(1-\lambda_i^t)e_{i,k}^{t,\mathrm{react}} + z_{i,k}^t.
-\]
-
-Utility:
-\[
-u_i(\mathbf{x}_i^t) = \prod_{k=1}^n x_{i,k}^{\tilde{\beta}_k^{(i)}}.
-\]
-
-Budget:
-\[
-\mathbf{p}^t \cdot \mathbf{z}_i^t
-\le
-\lambda_i^t (\mathbf{p}^t \cdot \mathbf{e}_i^{t,\mathrm{react}}).
-\]
-
-Demand:
-\[
-z_{i,k}^t(\lambda_i^t)
+\frac{p_a^t}{p_b^t}
 =
-\frac{\tilde{\beta}_k^{(i)}}{p_k^t}
-\lambda_i^t (\mathbf{p}^t \cdot \mathbf{e}_i^{t,\mathrm{react}}).
+\frac{\tilde{\beta}_a\,Q_b^t}{\tilde{\beta}_b\,Q_a^t}.
 \]
-
-Derivative of log-utility in \(\lambda_i^t\):
-\[
-\frac{d}{d\lambda_i^t}\log u_i(\lambda_i^t)
-=
-\sum_{k=1}^n \tilde{\beta}_k^{(i)}
-\frac{
-  -e_{i,k}^{t,\mathrm{react}}
-  +
-  \dfrac{\tilde{\beta}_k^{(i)}}{p_k^t}(\mathbf{p}^t \cdot \mathbf{e}_i^{t,\mathrm{react}})
-}{
-  (1-\lambda_i^t)e_{i,k}^{t,\mathrm{react}}
-  +
-  \lambda_i^t \dfrac{\tilde{\beta}_k^{(i)}}{p_k^t}(\mathbf{p}^t \cdot \mathbf{e}_i^{t,\mathrm{react}})
-}.
-\]
-
-\section{Market Clearing}
-
-Supply:
-\[
-Q_k^t = \sum_i \lambda_i^t e_{i,k}^{t,\mathrm{react}}.
-\]
-
-Demand:
-\[
-D_k^t = \sum_i
-\frac{\tilde{\beta}_k^{(i)}}{p_k^t}
-\lambda_i^t (\mathbf{p}^t \cdot \mathbf{e}_i^{t,\mathrm{react}}).
-\]
-
-Clearing requires \(D_k^t = Q_k^t\).
+In heterogeneous or fully vector-valued \(\bm{\lambda}_i^t\) settings, prices are naturally computed as a fixed point
+(e.g.\ via tâtonnement or an excess-demand root-finder).
 
 \section{Conclusion}
 
-Aggregating pairwise Cobb--Douglas preferences into global preferences allows
-the two-good zero-sum model of \cite{Tristain2024} to be extended to an economy
-with arbitrary dimension \(n\). The resulting reaction--diffusion exchange
-economy maintains convexity, tractability, and conservation, while opening the
-door to richer emergent behaviors in higher-dimensional economic systems.
+Aggregating pairwise Cobb--Douglas preferences into a global exponent vector enables a faithful \(n\)-good extension of
+the two-good model in \parencite{Tristain2024}. The extended reaction--diffusion economy preserves:
+\begin{itemize}[leftmargin=*]
+\item convexity of feasible reaction sets and diffusion optimization,
+\item closed-form Marshallian demand conditional on trading rates,
+\item a principled interpretation of endogenous transformations (reaction) plus Pareto-improving exchange (diffusion),
+\item and a clear pathway to simulation and implementation for \(n\ge 2\) goods.
+\end{itemize}
 
 \clearpage
+\nocite{CobbDouglas1928,MasColell1995,BoydVandenberghe2004,Varian1992}
+
 \printbibliography
 
 \end{document}
